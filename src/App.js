@@ -3,10 +3,30 @@ import Posts from './components/Posts';
 
 export default class App extends React.Component {
 
-  state = {
-    text: '',
-    check: '',
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      text: '',
+      check: '',
+    }
+
+    this.textRef = React.createRef();
+    this.typeMeRef = React.createRef();
   }
+
+  componentDidMount() {
+    const {text} = this.state;
+
+    this.textRef.current.focus();
+  }
+
+  componentDidUpdate() {
+    const {text} = this.state;
+
+    text.length < 10 ? this.textRef.current.focus() : this.typeMeRef.current.focus()
+  }
+
 
   onCheck = (event) => {
     this.setState({
@@ -45,7 +65,8 @@ export default class App extends React.Component {
 
     return(
       <div>
-        <input name="text" type="text" onChange={this.onInput} value={text}></input>
+        <input ref={this.textRef} name="text" type="text" onChange={this.onInput} value={text}></input>
+        <input ref={this.typeMeRef} name="text" type="text" placeholder="... text me"></input>
         <input name="check" id="subscribeNews" type="checkbox" onChange={this.onCheck} checked={check}></input>
           <label for="subscribeNews">Ok?</label>
         <input type="button" value="Send" onClick={this.onSend}></input>
