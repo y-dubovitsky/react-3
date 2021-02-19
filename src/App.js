@@ -3,29 +3,52 @@ import Posts from './components/Posts';
 
 export default class App extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      posts: [
-        { id: '1', name: 'First' },
-        { id: '2', name: 'Second' },
-        { id: '3', name: 'Third' }
-      ]
-    };
+  state = {
+    text: '',
+    check: '',
   }
 
-  onDeletePost = (id) => {
-    const newPosts = this.state.posts.filter(post => post.id !== id);
+  onCheck = (event) => {
     this.setState({
-      posts: newPosts
-    })
+      check: event.target.checked
+    }, () => console.log(this.state.check))
   }
+
+  onInput = (event) => {
+    this.setState({
+      [event.target.name] : event.target.value
+    }, console.log(this.state.text))
+  }
+
+  onSend = (event) => {
+    const {text, check} = this.state;
+    (check && this.validateEmail(text)) ? this.onSuccess() : alert("Fail");
+  }
+
+  onSuccess() {
+    Object.keys(this.state).forEach(state => {
+      this.setState({
+        [state]: ''
+      })
+    })
+    alert("Success")
+  }
+
+  validateEmail = (email) =>
+    {
+        const re = /\S+@\S+\.\S+/;
+        return re.test(email);
+    }
 
   render() {
-    return (
+    const {text, check} = this.state;
+
+    return(
       <div>
-        <Posts posts={this.state.posts} onDeletePost={this.onDeletePost} />
+        <input name="text" type="text" onChange={this.onInput} value={text}></input>
+        <input name="check" id="subscribeNews" type="checkbox" onChange={this.onCheck} checked={check}></input>
+          <label for="subscribeNews">Ok?</label>
+        <input type="button" value="Send" onClick={this.onSend}></input>
       </div>
     )
   }
