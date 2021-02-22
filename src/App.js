@@ -1,9 +1,16 @@
+import React from 'react';
 import logo from './logo.svg';
 import Clicker from './Clicker';
 
 function App() {
+
+  const [isClicker, setIsClicker] = React.useState(false);
+
   return (
-    <Clicker/>
+    <>
+      <button onClick={() => setIsClicker((prevIsClicker) => !prevIsClicker)}>Toogle Clicker</button>
+      {isClicker ? <Clicker/> : ''}
+    </>
   )
 }
 
