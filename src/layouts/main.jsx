@@ -5,47 +5,45 @@ import Search from '../components/search';
 
 const API_KEY = process.env.REACT_APP_API_KEY
 
-export default class Main extends React.Component {
+export default function Main({ }) {
 
-    constructor(props) {
-        super(props)
+    const [films, setFilms] = React.useState([]);
+    const [loading, setLoading] = React.useState(false);
 
-        this.state = {
-            films: [],
-            loading: false
-        }
-    }
-
-    componentDidMount() {
-        this.setState({ loading: true });
+    React.useEffect(() => {
+        setLoading(true);
 
         fetch(`http://www.omdbapi.com/?apikey=${API_KEY}&s=die+hard`)
             .then(response => response.json())
-            .then(json => this.setState({ films: json.Search, loading: false }))
-    }
+            .then(json => {
+                setFilms(json.Search);
+                setLoading(false);
+            })
+    }, []
+    )
 
-    searchFilmByName = (filmName, type = 'all') => {
-        this.setState({ loading: true });
+    const searchFilmByName = (filmName, type = 'all') => {
+        setLoading(true);
 
         fetch(`http://www.omdbapi.com/?apikey=${API_KEY}&s=${filmName}${type !== 'all' ? `&type=${type}` : `&type=${type}`}`)
             .then(response => response.json())
-            .then(data => this.setState({ films: data.Search, loading: false }))
+            .then(data => {
+                setFilms(data.Search);
+                setLoading(false);
+            }
+            )
     }
 
-    render() {
-        const { films, loading } = this.state;
-
-        return (
-            <>
-                <div className="container main">
-                    <Search searchFilmByName={this.searchFilmByName} />
-                    {loading ? (
-                        <Preloader />
-                    ) :
-                        <FilmList films={films} />
-                    }
-                </div>
-            </>
-        )
-    }
+    return (
+        <>
+            <div className="container main">
+                <Search searchFilmByName={searchFilmByName} />
+                {loading ? (
+                    <Preloader />
+                ) :
+                    <FilmList films={films} />
+                }
+            </div>
+        </>
+    )
 }
