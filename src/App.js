@@ -1,15 +1,16 @@
 import React from 'react';
 import logo from './logo.svg';
-import Clicker from './Clicker';
+import Timer from './Timer';
 
 function App() {
 
-  const [isClicker, setIsClicker] = React.useState(false);
+  const [isTimer, setIsTimer] = React.useState(false);
 
   return (
     <>
-      <button onClick={() => setIsClicker((prevIsClicker) => !prevIsClicker)}>Toogle Clicker</button>
-      {isClicker ? <Clicker/> : ''}
+      <button onClick={() => setIsTimer((prevIsTimer) => !prevIsTimer)}>Toogle Timer</button>
+      <br></br>
+      {isTimer ? <Timer/> : ''}
     </>
   )
 }
