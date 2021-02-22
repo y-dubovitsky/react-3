@@ -1,25 +1,32 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 
-function App() {
+export default function App() {
+
+  const [obj, setObj] = React.useState({
+    a: 'Hello',
+    b: 'World'
+  });
+
+  const changeObj = () => {
+    setObj({...obj, b: Math.random()})
+  }
+
+  const changeObj1 = () => {
+      setObj((prev) => {
+        return {
+        a: prev.a,
+        b: Math.random()
+        }
+      })
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {Math.random()}
+      <button onClick={() => changeObj()}>Click</button>
+      <button onClick={() => changeObj1()}>Click</button>
+      {console.log('OBJ ' + obj.a + " " + obj.b)}
     </div>
   );
 }
-
-export default App;
