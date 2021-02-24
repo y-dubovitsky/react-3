@@ -2,11 +2,13 @@ import React from 'react';
 import { API_KEY, API_URL } from '../config';
 import GoodList from './GoodsList';
 import Preloader from './Preloader';
+import ShoppingCart from './ShoppingCart';
 
 export default function Shop() {
 
     const [goods, setGoods] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
+    const [orderCount, setOrderCount] = React.useState(0);
 
     React.useEffect(function getGoods() {
         fetch(API_URL, {
@@ -26,6 +28,7 @@ export default function Shop() {
         <>
             {console.log(goods)}
             <main className='container content'>
+                <ShoppingCart quantity={orderCount}/>
                 {loading ? <Preloader/> : <GoodList goods={goods}/>}
             </main>
         </>
