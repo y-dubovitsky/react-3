@@ -7,7 +7,7 @@ export default function shoppingCart(props) {
     return(
         <div className="cart grey lighten-4">
             <i className="material-icons">shopping_cart</i>
-            {quantity === 0 ? <span className="">{quantity}</span> : 0}
+            {quantity === 0 ? 0 : <span className="">{quantity}</span>}
         </div>
     )
 

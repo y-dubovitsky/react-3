@@ -1,8 +1,8 @@
 import React from 'react';
 
-export default function goodsItem(props) {
+export default function GoodsItem(props) {
 
-    const { id, name, description, price, full_background } = props;
+    const { id, name, description, price, full_background, addGoodsToCart } = props;
 
     return (
         <>
@@ -15,7 +15,7 @@ export default function goodsItem(props) {
                     <p>{description}</p>
                 </div>
                 <div className="card-action">
-                    <button className='btn blue lighten-1'>Купить</button>
+                    <button className='btn blue lighten-1' onClick={() => addGoodsToCart(name)}>Купить</button>
                     <p className='right'>{price}$</p>
                 </div>
             </div>

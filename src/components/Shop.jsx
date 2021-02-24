@@ -8,7 +8,7 @@ export default function Shop() {
 
     const [goods, setGoods] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
-    const [orderCount, setOrderCount] = React.useState(0);
+    const [order, setOrder] = React.useState([]);
 
     React.useEffect(function getGoods() {
         fetch(API_URL, {
@@ -17,19 +17,23 @@ export default function Shop() {
             }
         }).then(response => response.json())
             .then(json => {
-                console.log(json);
                 setGoods(json.featured);
                 setLoading(false);
             }
             )
     }, [])
 
+    const addGoodsToCart = (name) => {
+        setOrder((prevOrder) => {
+            return prevOrder.includes(name) ? prevOrder : prevOrder.push(name)
+        })
+    }
+
     return (
         <>
-            {console.log(goods)}
             <main className='container content'>
-                <ShoppingCart quantity={orderCount}/>
-                {loading ? <Preloader/> : <GoodList goods={goods}/>}
+                <ShoppingCart quantity={order.length}/>
+                {loading ? <Preloader/> : <GoodList goods={goods} addGoodsToCart={addGoodsToCart}/>}
             </main>
         </>
     )
