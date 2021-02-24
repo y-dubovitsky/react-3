@@ -1,25 +1,13 @@
 import React from 'react';
-
-export const CustomContext = new React.createContext();
+import CustomContext from './CustomContext';
+// export const CustomContext = new React.createContext();
 
 export default function BookShop(props) {
 
     const [books, setBooks] = React.useState([
-        {
-            id: 1,
-            first: 'Js',
-
-        },
-        {
-            id: 2,
-            first: 'React',
-
-        },
-        {
-            id: 3,
-            first: 'Spring',
-
-        }
+        {id: 1, first: 'Js', },
+        {id: 2, first: 'Js', },
+        {id: 3, first: 'Js', }
     ]);
 
     const addBook = (book) => {

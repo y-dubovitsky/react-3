@@ -1,5 +1,5 @@
 import React from 'react';
-import {CustomContext} from './BookShop';
+import CustomContext from './CustomContext';
 import Book from './Book';
 
 export default function Books() {
