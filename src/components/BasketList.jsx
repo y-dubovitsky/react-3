@@ -3,7 +3,7 @@ import BasketItem from './BasketItem';
 
 export default function BasketList(props) {
 
-    const { order = [], toggleBasketVisible, deleteGoodsFromCart } = props;
+    const { order = [], toggleBasketVisible, deleteGoodsFromCart, changeGoodsCount } = props;
 
     const totalCost = () => {
         let initialValue = 0;
@@ -22,7 +22,12 @@ export default function BasketList(props) {
                 <ul className="collection with-header">
                     {order.length !== 0 ?
                         order.map(item => {
-                            return <BasketItem key={item.id} item={item} deleteGoodsFromCart={deleteGoodsFromCart} />
+                            return <BasketItem
+                                key={item.id}
+                                item={item}
+                                deleteGoodsFromCart={deleteGoodsFromCart}
+                                changeGoodsCount={changeGoodsCount}
+                            />
                         }) : <li className="collection-item avatar">There is nothing... yet</li>
                     }
                 </ul>

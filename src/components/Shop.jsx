@@ -34,7 +34,11 @@ export default function Shop() {
             });
         } else {
             const index = order.findIndex(item => item.name === name);
-            order[index].count++;
+            let newItem = order[index]; //TODO Make refactor! not readable
+            newItem.count++;
+            setOrder((prevOrder) => {
+                return replaceElementInArray(prevOrder, newItem);
+            })
         }
         console.log(order);
     }
@@ -44,6 +48,32 @@ export default function Shop() {
         setOrder(result);
     }
 
+    const changeGoodsCount = (id, action) => {
+        const index = order.findIndex(item => item.id === id);
+        let finded = order[index]; //TODO Make refactor! not readable
+
+        switch(action) {
+            case 'increase' : {
+                finded.count++;
+                setOrder((prevOrder) => {
+                    return replaceElementInArray(prevOrder, finded);
+                })
+                break;
+            }
+            case 'reduce' : {
+                if(finded.count > 1) {
+                    finded.count--;
+                } else {
+                    deleteGoodsFromCart(id);
+                }
+                setOrder((prevOrder) => {
+                    return replaceElementInArray(prevOrder, finded);
+                })
+                break;
+            }
+        }
+    }
+
     const toggleBasketVisible = () => {
         setBasketVisible(!basketVisible);
     }
@@ -51,6 +81,11 @@ export default function Shop() {
     // Utils method
     const findObject = (array, name) => {
         return array.find(object => object.name === name) ? true : false
+    }
+
+    // Utils method
+    const replaceElementInArray = (array, object) => {
+        return array.map(item => item.id === object.id ? object : item);
     }
 
     return (
@@ -63,6 +98,7 @@ export default function Shop() {
                         order={order}
                         toggleBasketVisible={toggleBasketVisible}
                         deleteGoodsFromCart={deleteGoodsFromCart}
+                        changeGoodsCount={changeGoodsCount}
                     /> : ''}
             </main>
         </>

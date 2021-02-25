@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function BasketItem(props) {
 
-    const { item, deleteGoodsFromCart } = props;
+    const { item, deleteGoodsFromCart, changeGoodsCount } = props;
 
     return (
         <>
@@ -13,6 +13,16 @@ export default function BasketItem(props) {
                     <br />
                     Count: {item.count}
                 </p>
+                <span
+                    onClick={() => changeGoodsCount(item.id, 'increase')}
+                >
+                    <i className="material-icons">add</i>
+                </span>
+                <span
+                    onClick={() => changeGoodsCount(item.id, 'reduce')}
+                >
+                    <i className="material-icons">remove</i>
+                </span>
                 <span
                     className="secondary-content pointer"
                     onClick={() => deleteGoodsFromCart(item.id)}>
