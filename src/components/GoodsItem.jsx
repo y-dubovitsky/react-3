@@ -15,7 +15,7 @@ export default function GoodsItem(props) {
                     <p>{description}</p>
                 </div>
                 <div className="card-action">
-                    <button className='btn blue lighten-1' onClick={() => addGoodsToCart(name)}>Купить</button>
+                    <button className='btn blue lighten-1' onClick={() => addGoodsToCart(id, name, price, full_background)}>Купить</button>
                     <p className='right'>{price}$</p>
                 </div>
             </div>
