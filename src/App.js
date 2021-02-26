@@ -1,18 +1,37 @@
 import React from 'react';
 import './App.css';
-import BookShop from './BookShop';
-import Books from './Books';
-import BreadShop from './BreadShop';
-import Bread from './Bread';
+
+const initialState = { count: 0 }
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment': {
+      return { count: state.count + 1 }
+    }
+    case 'decrement': {
+      if (action.value !== undefined) console.log(action.value)
+      return { count: state.count - 1 }
+    }
+    default: {
+      return state.count;
+    }
+  }
+}
 
 export default function App() {
 
+  const [state, dispatch] = React.useReducer(reducer, initialState);
+
   return (
-    <BreadShop>
-      <BookShop>
-        <Books />
-      </BookShop>
-      <Bread/>
-    </BreadShop>
+    <>
+      Count: {state.count}
+      <button onClick={() => dispatch(
+        {
+          type: 'decrement',
+          value: 123
+        }
+      )}>Down</button>
+      <button onClick={() => dispatch({ type: 'increment' })}>Up</button>
+    </>
   );
 }
