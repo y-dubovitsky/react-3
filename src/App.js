@@ -10,18 +10,18 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 function App() {
   return (
     <>
-      <Header />
-      <main className="container content">
-        <BrowserRouter>
+      <BrowserRouter>
+        <Header />
+        <main className="container content">
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/about" component={About} />
             <Route path="/contact" component={Contact} />
             <Route component={NotFound} />
           </Switch>
-        </BrowserRouter>
-      </main>
-      <Footer />
+        </main>
+        <Footer />
+      </BrowserRouter>
     </>
   );
 }
