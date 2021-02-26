@@ -1,9 +1,11 @@
 import React from 'react';
 import BasketItem from './BasketItem';
+import {Context} from '../context';
 
 export default function BasketList(props) {
 
-    const { order = [], toggleBasketVisible, deleteGoodsFromCart, changeGoodsCount } = props;
+    const { order = [], deleteGoodsFromCart, changeGoodsCount } = props;
+    const {toggleBasketVisible} = React.useContext(Context);
 
     const totalCost = () => {
         let initialValue = 0;

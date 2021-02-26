@@ -1,8 +1,10 @@
 import React from 'react';
+import {Context} from '../context';
 
 export default function shoppingCart(props) {
 
-    const {toggleBasketVisible, quantity = 0} = props;
+    const {quantity = 0} = props;
+    const {toggleBasketVisible} = React.useContext(Context);
 
     return(
         <div className="cart grey lighten-4" onClick={() => toggleBasketVisible()}>

@@ -9,13 +9,11 @@ import { Context } from '../context';
 export default function Shop() {
 
     const [goods, setGoods] = React.useState([]);
-    const [loading, setLoading] = React.useState(true);
+    // const [loading, setLoading] = React.useState(true);
     const [order, setOrder] = React.useState([]);
-    const [basketVisible, setBasketVisible] = React.useState(false);
-    const {a, b} = React.useContext(Context);
 
-    console.log(a);
-
+    // Use Context
+    const {basketVisible, loading, toggleLoading} = React.useContext(Context);
 
     React.useEffect(function getGoods() {
         fetch(API_URL, {
@@ -25,9 +23,8 @@ export default function Shop() {
         }).then(response => response.json())
             .then(json => {
                 setGoods(json.featured);
-                setLoading(false);
-            }
-            )
+                toggleLoading();
+            })
     }, [])
 
     const addGoodsToCart = (id, name, price, full_background) => {
@@ -79,10 +76,6 @@ export default function Shop() {
         }
     }
 
-    const toggleBasketVisible = () => {
-        setBasketVisible(!basketVisible);
-    }
-
     // Utils method
     const findObject = (array, name) => {
         return array.find(object => object.name === name) ? true : false
@@ -96,12 +89,11 @@ export default function Shop() {
     return (
         <>
             <main className='container content'>
-                <ShoppingCart quantity={order.length} toggleBasketVisible={toggleBasketVisible} />
+                <ShoppingCart quantity={order.length} />
                 {loading ? <Preloader /> : <GoodList goods={goods} addGoodsToCart={addGoodsToCart} />}
                 {basketVisible ?
                     <BasketList
                         order={order}
-                        toggleBasketVisible={toggleBasketVisible}
                         deleteGoodsFromCart={deleteGoodsFromCart}
                         changeGoodsCount={changeGoodsCount}
                     /> : ''}
