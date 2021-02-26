@@ -4,6 +4,7 @@ import GoodList from './GoodsList';
 import Preloader from './Preloader';
 import ShoppingCart from './ShoppingCart';
 import BasketList from './BasketList';
+import { Context } from '../context';
 
 export default function Shop() {
 
@@ -11,6 +12,10 @@ export default function Shop() {
     const [loading, setLoading] = React.useState(true);
     const [order, setOrder] = React.useState([]);
     const [basketVisible, setBasketVisible] = React.useState(false);
+    const {a, b} = React.useContext(Context);
+
+    console.log(a);
+
 
     React.useEffect(function getGoods() {
         fetch(API_URL, {
